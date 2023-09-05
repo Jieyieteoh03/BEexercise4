@@ -1,10 +1,23 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const app = express();
 
 //setup a middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+//setup cors
+const corsHandler = cors({
+  origin: "*",
+  methods: "GET,POST,PUT,DELETE",
+  allowedHeaders: ["Content-Type", "Authorization"],
+  optionsSuccessStatus: 200,
+  preflightContinue: true,
+});
+
+app.use(corsHandler);
 
 //mongodb connection
 mongoose
